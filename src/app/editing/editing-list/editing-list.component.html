@@ -1,0 +1,123 @@
+<div class="container">
+  <div class="row">
+    <div class="todo-items-container">
+      <div class="text-center task-title">
+        TO DO
+      </div>
+      <form [formGroup]="messageTodoForm">
+        <label class="input-group">
+          <input type="text" formControlName="input" class="form-control" #itemTodoTitle placeholder="input to do..">
+          <div class="input-group-addon hover-cursor" (click)="onAddTodo(itemTodoTitle)">
+            <i class="fa fa-plus-circle fa-2x"></i>
+          </div>
+        </label>
+      </form>
+
+      <div class="all">
+        <span class="fa fa-lg"
+              (click)="onSelectAllTodo()"
+              [ngClass]="isTodoCheckedOrNot == true?'fa-check-circle-o':'fa-circle-thin'"
+              [class.text-success]="isTodoCheckedOrNot"
+              style="padding-left: 10px;"></span>
+        <span class="select-all" [class.text-success]="isTodoCheckedOrNot">Select All</span>
+        <div class="pull-right">
+        <span class="hover-cursor text-danger" (click)="onTodoDeleteAll()">
+            <i class="fa fa-lg fa-times" style="padding-right: 9px;"></i>
+        </span>
+          <span class="hover-cursor text-danger" (click)="onTodoSwitchAll()">
+            <i class="icon-share-alt" style="padding-right: 9px;"></i>
+        </span>
+        </div>
+      </div>
+
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="toDoListArray"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="todo-items-list"
+        [class.emptyBorder]="toDoListArray.length === 0"
+        (cdkDropListDropped)="drop($event, 'todo')">
+
+        <div class="todo-items-box" *ngFor="let item of toDoListArray; let i = index" cdkDrag>
+          <div>
+            <span class="check-circle"
+                  [class.text-success]="item.isChecked"
+                  (click)="alterTodoCheck(item.$key,item.isChecked)">
+              <i class="fa fa-lg" [ngClass]="item.isChecked?'fa-check-circle-o':'fa-circle-thin'"></i>
+            </span>
+            {{item.title}}
+          </div>
+          <div class="pull-right">
+            <a routerLink="/editing/{{i}}">
+              <span class="hover-cursor text-primary">
+                <i class="fa fa-pencil-square-o fa-lg"></i>
+              </span>
+            </a>
+            <span class="hover-cursor text-danger" (click)="onTodoDelete(item.$key)">
+              <i class="fa fa-trash-o fa-lg"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="todo-items-container">
+      <div class="text-center task-title">
+        COMPLETED
+      </div>
+      <form [formGroup]="messageDoneForm">
+        <label class="input-group">
+          <input type="text" formControlName="input" class="form-control" #itemDoneTitle
+                 placeholder="input completed..">
+          <div class="input-group-addon hover-cursor" (click)="onAddDone(itemDoneTitle)">
+            <i class="fa fa-plus-circle fa-2x"></i>
+          </div>
+        </label>
+      </form>
+
+      <div class="all">
+        <span class="fa fa-lg"
+              (click)="onSelectAllDone()"
+              [ngClass]="isDoneCheckedOrNot == true?'fa-check-circle-o':'fa-circle-thin'"
+              [class.text-success]="isDoneCheckedOrNot"
+              style="padding-left: 10px;"></span>
+        <span class="select-all" [class.text-success]="isDoneCheckedOrNot">Select All</span>
+        <div class="pull-right">
+        <span class="hover-cursor text-danger" (click)="onDoneDeleteAll()">
+            <i class="fa fa-lg fa-times" style="padding-right: 9px;"></i>
+        </span>
+          <span class="hover-cursor text-danger" (click)="onDoneSwitchAll()">
+            <i class="icon-reply" style="padding-right: 9px;"></i>
+        </span>
+        </div>
+      </div>
+
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="doneListArray"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="todo-items-list"
+        [class.emptyBorder]="doneListArray.length === 0"
+        (cdkDropListDropped)="drop($event, 'done')">
+        <div class="todo-items-box" *ngFor="let item of doneListArray; let i = index" cdkDrag>
+          <div>
+          <span class="check-circle"
+                [class.text-success]="item.isChecked"
+                (click)="alterDoneCheck(item.$key,item.isChecked)">
+            <i class="fa fa-lg" [ngClass]="item.isChecked?'fa-check-circle-o':'fa-circle-thin'"></i>
+          </span>
+            {{item.title}}
+          </div>
+
+          <div class="pull-right">
+            <span class="hover-cursor text-danger" (click)="onDoneDelete(item.$key)">
+              <i class="fa fa-trash-o fa-lg"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

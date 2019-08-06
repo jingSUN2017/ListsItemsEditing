@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="col-xs-12 col-sm-10 col-md-7 col-lg-5 editing-area">
+    <div *ngIf="task">
+      <div class="info-record">
+        <span class="info">ID: </span>{{task.$key}}
+      </div>
+      <div class="info-record">
+        <span class="info">OLD Content: </span>{{temp}}
+      </div>
+
+      <form [formGroup]="messageForm">
+        <label class="input-group">
+          <input type="text" formControlName="edit" class="form-control" [(ngModel)]="task.title">
+          <div class="input-group-addon hover-cursor" (click)="onEdit(task.$key, task.title)">
+            <i class="fa fa-plus-circle fa-2x"></i>
+          </div>
+        </label>
+        <div *ngIf="submitted && !messageForm.controls.edit.errors"
+             class="success-msg edit-input" [ngStyle]="{'display': display}">
+          <i *ngIf="messageForm.controls.edit.errors.required" class="fa fa-check"></i>
+          It has been edited successfully.
+        </div>
+      </form>
+
+      <button (click)="goBack()">go back</button>
+    </div>
+  </div>
+</div>

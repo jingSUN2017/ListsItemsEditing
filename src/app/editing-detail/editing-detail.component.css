@@ -1,0 +1,35 @@
+.editing-area{
+  margin: auto;
+}
+
+input{
+  height: 50px;
+}
+
+form{
+  margin: 16px 0 0 0;
+}
+.info-record{
+  padding: 0 0 8px 0;
+}
+
+.info{
+  font-weight: 600;
+  padding-right: 2px;
+}
+
+::placeholder, .form-control{
+  color: darkgrey;
+}
+
+.success-msg{
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+  color: #270;
+  background-color: #DFF2BF;
+}
+button{
+  margin-top: 36px;
+  float: right;
+}
